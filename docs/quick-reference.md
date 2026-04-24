@@ -41,6 +41,9 @@ Typical output:
 - `validation-report.json`
 - `README.md`
 
+Sanitized bundle note:
+- `validation-report.json` is standard for sanitize output
+
 ### 4. Run bundled sanitize fixtures
 
 ```powershell

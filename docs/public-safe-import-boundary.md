@@ -59,6 +59,8 @@ This is the most important boundary layer.
 
 Public output should contain only the cleaned bundle artifacts.
 
+For the sanitize pipeline, `validation-report.json` should be considered standard output, not a debugging extra.
+
 Minimum intended outputs:
 
 - `gallery.html`
@@ -66,6 +68,7 @@ Minimum intended outputs:
 - `tags.json`
 - `translations.json`
 - `package-info.json`
+- `validation-report.json`
 - `README.md`
 
 ---

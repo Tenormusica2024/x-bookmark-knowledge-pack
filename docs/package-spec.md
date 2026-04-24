@@ -11,6 +11,10 @@ Minimum distribution bundle:
 - `package-info.json`
 - `README.md`
 
+Sanitized bundle standard additions:
+
+- `validation-report.json`
+
 Optional:
 
 - `bookmarks.md`
@@ -47,6 +51,12 @@ Optional:
 - lightweight manifest for pack metadata
 - summary stats for humans and agents
 - quick capability discovery without parsing the full corpus
+
+### `validation-report.json`
+
+- standard validation artifact for sanitized bundles
+- explains schema checks and dropped-field counts
+- optional for manually assembled or sample-only bundles
 
 ### `bookmarks.md`
 

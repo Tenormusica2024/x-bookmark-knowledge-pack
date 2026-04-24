@@ -23,6 +23,8 @@ not:
 
 **a cloud bookmark manager**
 
+![Sample pack screenshot](docs/assets/sample-pack.png)
+
 ---
 
 ## Package shape
@@ -38,9 +40,10 @@ Minimum public bundle:
 
 Optional later:
 
-- `validation-report.json`
 - `bookmarks.md`
 - `bookmarks.jsonl`
+
+`validation-report.json` is treated as **standard output for sanitized bundles**, but optional for sample/manual bundles.
 
 ---
 
