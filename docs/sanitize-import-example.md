@@ -26,6 +26,7 @@ python .\scripts\sanitize_import.py .\sample-data\private-input.sample.json .\di
 - `tags.json`
 - `translations.json`
 - `package-info.json`
+- `validation-report.json`
 - `README.md`
 
 ## Current behavior
@@ -33,4 +34,6 @@ python .\scripts\sanitize_import.py .\sample-data\private-input.sample.json .\di
 - strips obvious private-only fields
 - normalizes the core JSON shape
 - validates that forbidden private-like markers do not remain
+- checks sanitized outputs against explicit allowlists
+- writes a validation report with dropped-field counts
 - renders HTML from the cleaned JSON

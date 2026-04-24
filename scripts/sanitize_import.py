@@ -30,6 +30,17 @@ DEFAULT_CATEGORIES = [
     'ai-industry', 'dev-env', 'lifestyle', 'tutorial'
 ]
 
+ALLOWED_BOOKMARK_KEYS = {'id', 'text', 'created_at', 'author', 'media', 'source_url'}
+ALLOWED_AUTHOR_KEYS = {'id', 'username', 'display_name'}
+ALLOWED_MEDIA_KEYS = {'type', 'media_url_https', 'expanded_url', 'video_url'}
+ALLOWED_TAG_ROOT_KEYS = {'classified_at', 'total', 'categories', 'tags'}
+ALLOWED_TAG_KEYS = {'id', 'primary', 'secondary'}
+ALLOWED_TRANSLATION_KEYS = {'author', 'original', 'ja'}
+ALLOWED_PACKAGE_INFO_KEYS = {
+    'name', 'kind', 'generated_from', 'generated_at', 'files', 'stats',
+    'viewer_capabilities', 'agent_use', 'sanitized', 'validation'
+}
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -47,18 +58,30 @@ def parse_args() -> argparse.Namespace:
 
 
 def _norm_media(item: dict[str, Any]) -> dict[str, str]:
-    return {
+    media: dict[str, str] = {
         'type': item.get('type') or 'photo',
         'media_url_https': item.get('media_url_https') or item.get('preview_url') or '',
         'expanded_url': item.get('expanded_url') or item.get('url') or '',
-        **({'video_url': item.get('video_url')} if item.get('video_url') else {}),
     }
+    if item.get('video_url'):
+        media['video_url'] = item.get('video_url')
+    return media
 
 
-def sanitize_bookmarks(raw: dict[str, Any]) -> dict[str, Any]:
+def sanitize_bookmarks(raw: dict[str, Any]) -> tuple[dict[str, Any], dict[str, int]]:
     tweets_out: list[dict[str, Any]] = []
+    dropped_metrics = {
+        'bookmark_extra_fields_removed': 0,
+        'media_extra_fields_removed': 0,
+        'author_extra_fields_removed': 0,
+    }
     for row in raw.get('tweets') or []:
         author = row.get('author') or {}
+        dropped_metrics['bookmark_extra_fields_removed'] += len(set(row.keys()) - (ALLOWED_BOOKMARK_KEYS | {'tweet_url'}))
+        dropped_metrics['author_extra_fields_removed'] += len(set(author.keys()) - ALLOWED_AUTHOR_KEYS)
+        for media_row in (row.get('media') or []):
+            dropped_metrics['media_extra_fields_removed'] += len(set(media_row.keys()) - (ALLOWED_MEDIA_KEYS | {'preview_url', 'url'}))
+
         public_row = {
             'id': str(row.get('id') or ''),
             'text': row.get('text') or '',
@@ -79,16 +102,22 @@ def sanitize_bookmarks(raw: dict[str, Any]) -> dict[str, Any]:
         'exported_at': raw.get('exported_at') or raw.get('generated_at') or '',
         'count': len(tweets_out),
         'tweets': tweets_out,
-    }
+    }, dropped_metrics
 
 
-def sanitize_tags(raw: dict[str, Any], tweet_ids: set[str]) -> dict[str, Any]:
+def sanitize_tags(raw: dict[str, Any], tweet_ids: set[str]) -> tuple[dict[str, Any], dict[str, int]]:
     categories = raw.get('categories') or DEFAULT_CATEGORIES
     out_rows = []
+    dropped_metrics = {
+        'tag_extra_fields_removed': 0,
+        'tag_rows_skipped_missing_bookmark': 0,
+    }
     for row in raw.get('tags') or []:
         tweet_id = str(row.get('id') or '')
         if tweet_id not in tweet_ids:
+            dropped_metrics['tag_rows_skipped_missing_bookmark'] += 1
             continue
+        dropped_metrics['tag_extra_fields_removed'] += len(set(row.keys()) - ALLOWED_TAG_KEYS)
         primary = row.get('primary') or ''
         secondary = [x for x in (row.get('secondary') or []) if isinstance(x, str)]
         out_rows.append({'id': tweet_id, 'primary': primary, 'secondary': secondary})
@@ -97,31 +126,98 @@ def sanitize_tags(raw: dict[str, Any], tweet_ids: set[str]) -> dict[str, Any]:
         'total': len(out_rows),
         'categories': categories,
         'tags': out_rows,
-    }
+    }, dropped_metrics
 
 
-def sanitize_translations(raw: dict[str, Any], bookmarks: dict[str, Any]) -> dict[str, Any]:
+def sanitize_translations(raw: dict[str, Any], bookmarks: dict[str, Any]) -> tuple[dict[str, Any], dict[str, int]]:
     tweet_map = {str(t['id']): t for t in bookmarks.get('tweets') or []}
     out: dict[str, Any] = {}
+    dropped_metrics = {
+        'translation_extra_fields_removed': 0,
+        'translation_rows_skipped_missing_bookmark': 0,
+    }
     for tweet_id, value in (raw or {}).items():
         tid = str(tweet_id)
         if tid not in tweet_map:
+            dropped_metrics['translation_rows_skipped_missing_bookmark'] += 1
             continue
+        dropped_metrics['translation_extra_fields_removed'] += len(set(value.keys()) - ALLOWED_TRANSLATION_KEYS)
         tweet = tweet_map[tid]
         out[tid] = {
             'author': value.get('author') or tweet.get('author', {}).get('username', ''),
             'original': value.get('original') or tweet.get('text', ''),
             'ja': value.get('ja') or value.get('translated') or value.get('original') or tweet.get('text', ''),
         }
-    return out
+    return out, dropped_metrics
 
 
-def validate_public_safe(payloads: list[tuple[str, Any]]) -> None:
+def _assert_exact_keys(obj: dict[str, Any], allowed: set[str], label: str) -> None:
+    extra = set(obj.keys()) - allowed
+    if extra:
+        raise ValueError(f'{label} contains unexpected keys after sanitization: {sorted(extra)}')
+
+
+def validate_public_safe(payloads: list[tuple[str, Any]]) -> list[str]:
     serialized = json.dumps({name: payload for name, payload in payloads}, ensure_ascii=False)
     lower = serialized.lower()
     hits = [needle for needle in FORBIDDEN_SUBSTRINGS if needle.lower() in lower]
     if hits:
         raise ValueError(f'Forbidden private-like markers remained after sanitization: {hits}')
+    return ['forbidden-substring-scan:ok']
+
+
+def validate_schema(bookmarks: dict[str, Any], tags: dict[str, Any], translations: dict[str, Any], package_info: dict[str, Any]) -> list[str]:
+    checks: list[str] = []
+    _assert_exact_keys(bookmarks, {'exported_at', 'count', 'tweets'}, 'bookmarks root')
+    checks.append('bookmarks-root-keys:ok')
+    for tweet in bookmarks.get('tweets') or []:
+        _assert_exact_keys(tweet, ALLOWED_BOOKMARK_KEYS, f"bookmark {tweet.get('id')}")
+        _assert_exact_keys(tweet.get('author') or {}, ALLOWED_AUTHOR_KEYS, f"bookmark {tweet.get('id')} author")
+        for media in tweet.get('media') or []:
+            _assert_exact_keys(media, ALLOWED_MEDIA_KEYS, f"bookmark {tweet.get('id')} media")
+    checks.append('bookmarks-nested-keys:ok')
+
+    _assert_exact_keys(tags, ALLOWED_TAG_ROOT_KEYS, 'tags root')
+    for row in tags.get('tags') or []:
+        _assert_exact_keys(row, ALLOWED_TAG_KEYS, f"tag {row.get('id')}")
+    checks.append('tags-schema:ok')
+
+    for tweet_id, row in translations.items():
+        _assert_exact_keys(row, ALLOWED_TRANSLATION_KEYS, f'translation {tweet_id}')
+    checks.append('translations-schema:ok')
+
+    _assert_exact_keys(package_info, ALLOWED_PACKAGE_INFO_KEYS, 'package-info root')
+    checks.append('package-info-schema:ok')
+    return checks
+
+
+def build_validation_report(
+    bookmarks: dict[str, Any],
+    tags: dict[str, Any],
+    translations: dict[str, Any],
+    drop_metrics: dict[str, int],
+    checks: list[str],
+    source_name: str,
+) -> dict[str, Any]:
+    return {
+        'source': source_name,
+        'status': 'ok',
+        'checks': checks,
+        'allowlists': {
+            'bookmark_keys': sorted(ALLOWED_BOOKMARK_KEYS),
+            'author_keys': sorted(ALLOWED_AUTHOR_KEYS),
+            'media_keys': sorted(ALLOWED_MEDIA_KEYS),
+            'tag_root_keys': sorted(ALLOWED_TAG_ROOT_KEYS),
+            'tag_keys': sorted(ALLOWED_TAG_KEYS),
+            'translation_keys': sorted(ALLOWED_TRANSLATION_KEYS),
+        },
+        'counts': {
+            'bookmarks': bookmarks.get('count', 0),
+            'tag_rows': tags.get('total', 0),
+            'translation_rows': len(translations),
+        },
+        'dropped': drop_metrics,
+    }
 
 
 def write_json(path: Path, payload: Any) -> None:
@@ -132,29 +228,57 @@ def main() -> None:
     args = parse_args()
     raw = json.loads(args.input.read_text(encoding='utf-8'))
 
-    bookmarks = sanitize_bookmarks(raw.get('bookmarks') or raw)
+    bookmarks, bookmark_metrics = sanitize_bookmarks(raw.get('bookmarks') or raw)
     tweet_ids = {str(t['id']) for t in bookmarks.get('tweets') or []}
-    tags = sanitize_tags(raw.get('tags') or {}, tweet_ids)
-    translations = sanitize_translations(raw.get('translations') or {}, bookmarks)
+    tags, tag_metrics = sanitize_tags(raw.get('tags') or {}, tweet_ids)
+    translations, translation_metrics = sanitize_translations(raw.get('translations') or {}, bookmarks)
+    drop_metrics = bookmark_metrics | tag_metrics | translation_metrics
+
     package_info = build_manifest(bookmarks, tags, translations)
     package_info.update({
         'kind': 'public-safe-bundle',
         'generated_from': args.input.name,
         'sanitized': True,
+        'files': [
+            'gallery.html',
+            'bookmarks.json',
+            'tags.json',
+            'translations.json',
+            'package-info.json',
+            'validation-report.json',
+            'README.md',
+        ],
     })
 
-    validate_public_safe([
+    checks = []
+    checks.extend(validate_public_safe([
         ('bookmarks', bookmarks),
         ('tags', tags),
         ('translations', translations),
         ('package_info', package_info),
-    ])
+    ]))
+    checks.extend(validate_schema(bookmarks, tags, translations, package_info))
+
+    validation = build_validation_report(
+        bookmarks=bookmarks,
+        tags=tags,
+        translations=translations,
+        drop_metrics=drop_metrics,
+        checks=checks,
+        source_name=args.input.name,
+    )
+    package_info['validation'] = {
+        'status': validation['status'],
+        'checks': validation['checks'],
+        'dropped': validation['dropped'],
+    }
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     write_json(args.output_dir / 'bookmarks.json', bookmarks)
     write_json(args.output_dir / 'tags.json', tags)
     write_json(args.output_dir / 'translations.json', translations)
     write_json(args.output_dir / 'package-info.json', package_info)
+    write_json(args.output_dir / 'validation-report.json', validation)
     html = build_html(bookmarks, title=args.title, subtitle=args.subtitle, tags_data=tags)
     (args.output_dir / 'gallery.html').write_text(html, encoding='utf-8')
     (args.output_dir / 'README.md').write_text(

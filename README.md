@@ -110,6 +110,7 @@ This generates:
 - `dist/sample-pack/tags.json`
 - `dist/sample-pack/translations.json`
 - `dist/sample-pack/package-info.json`
+- `dist/sanitized-sample/validation-report.json`
 - `dist/sample-pack/README.md`
 
 Then open `dist/sample-pack/gallery.html` in your browser.
