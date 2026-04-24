@@ -109,3 +109,9 @@ Not on:
 - cloud sync scale
 - generic bookmark SaaS breadth
 - “AI tagging” alone
+
+---
+
+## License
+
+MIT
