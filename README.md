@@ -26,6 +26,34 @@ not:
 ![Sample pack screenshot](docs/assets/sample-pack.png)
 
 ---
+## Who this is for
+
+Good fit for:
+
+- people who want a local-first way to reuse X bookmarks
+- people who want the same bookmark corpus to work for both humans and AI agents
+- people who already have an extracted bookmark DB / export process upstream
+
+Not the best fit for:
+
+- people looking for a polished cloud bookmark SaaS
+- people looking for a zero-setup generic bookmarking product
+- people who want the viewer itself to fully own upstream collection
+
+---
+
+## End-to-end idea
+
+The intended flow is simple:
+
+1. upstream extractor / bookmark DB produces JSON
+2. `refresh_bundle.py` refreshes the stable bundle
+3. `gallery.html` and companion JSON outputs are regenerated
+4. a scheduler reruns the same command later
+
+This is why the repo is positioned as a **knowledge-pack layer** on top of an extracted source, not as a full bookmark SaaS.
+
+---
 
 ## Package shape
 
@@ -103,6 +131,8 @@ The recommended upstream is an extracted bookmark DB / export JSON outside the v
 - `docs/refresh-pipeline.md`
 - `docs/scheduler-setup.md`
 - `docs/recommended-upstream-input.md`
+- `docs/who-its-for.md`
+- `docs/end-to-end-example.md`
 
 ---
 

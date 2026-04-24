@@ -97,3 +97,5 @@ Output:
 2. `docs/quickstart.md`
 3. `docs/sanitize-import-example.md`
 4. `docs/use-with-agents.md`
+5. `docs/who-its-for.md`
+6. `docs/end-to-end-example.md`
