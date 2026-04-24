@@ -1,6 +1,6 @@
 {
   "classified_at": "2026-04-24T00:00:00+0000",
-  "total": 3,
+  "total": 6,
   "categories": [
     "frontend",
     "backend",
@@ -39,6 +39,29 @@
       "secondary": [
         "tutorial",
         "workflow"
+      ]
+    },
+    {
+      "id": "900000000000000004",
+      "primary": "dev-env",
+      "secondary": [
+        "ai-agent",
+        "tutorial"
+      ]
+    },
+    {
+      "id": "900000000000000005",
+      "primary": "prompt-eng",
+      "secondary": [
+        "tutorial"
+      ]
+    },
+    {
+      "id": "900000000000000006",
+      "primary": "tool-update",
+      "secondary": [
+        "workflow",
+        "ai-agent"
       ]
     }
   ]

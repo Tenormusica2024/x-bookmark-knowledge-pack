@@ -13,5 +13,20 @@
     "author": "sample_agent_arch",
     "original": "Agent Skills を使ったワークフロー設計。Slash command と review loop の整理が分かりやすい。",
     "ja": "Agent Skills を使ったワークフロー設計。Slash command と review loop の整理が分かりやすい。"
+  },
+  "900000000000000004": {
+    "author": "sample_dev_env",
+    "original": "Local MCP server setup notes: keeping tool boundaries explicit makes multi-agent runs much easier to debug.",
+    "ja": "Local MCP server のセットアップメモ。ツール境界を明示しておくと multi-agent 実行のデバッグがかなり楽になる。"
+  },
+  "900000000000000005": {
+    "author": "sample_prompt_lab",
+    "original": "Prompt compression before retrieval is underrated. 短くしてから埋め込むとクラスタの質がかなり安定する。",
+    "ja": "retrieval 前の prompt compression は過小評価されがち。短くしてから埋め込むとクラスタ品質がかなり安定する。"
+  },
+  "900000000000000006": {
+    "author": "sample_tooling",
+    "original": "Small release note: bookmark export viewer now supports primary-only tag matching and AND filtering for mixed-theme exploration.",
+    "ja": "小さなリリースノート。bookmark export viewer が primary-only tag matching と AND filtering に対応し、複合テーマ探索がしやすくなった。"
   }
 }

@@ -1,6 +1,6 @@
 {
   "exported_at": "2026-04-24T00:00:00+00:00",
-  "count": 3,
+  "count": 6,
   "tweets": [
     {
       "id": "900000000000000001",
@@ -40,6 +40,52 @@
         "display_name": "Sample Agent Architect"
       },
       "media": []
+    },
+    {
+      "id": "900000000000000004",
+      "text": "Local MCP server setup notes: keeping tool boundaries explicit makes multi-agent runs much easier to debug.",
+      "created_at": "2026-04-19T07:40:00+00:00",
+      "author": {
+        "id": "1004",
+        "username": "sample_dev_env",
+        "display_name": "Sample Dev Environment"
+      },
+      "media": [
+        {
+          "type": "video",
+          "media_url_https": "https://picsum.photos/seed/xbkp2/600/600",
+          "expanded_url": "https://example.com/sample/video/1",
+          "video_url": "https://example.com/sample/video-file/1.mp4"
+        }
+      ]
+    },
+    {
+      "id": "900000000000000005",
+      "text": "Prompt compression before retrieval is underrated. 短くしてから埋め込むとクラスタの質がかなり安定する。",
+      "created_at": "2026-04-18T10:05:00+00:00",
+      "author": {
+        "id": "1005",
+        "username": "sample_prompt_lab",
+        "display_name": "Sample Prompt Lab"
+      },
+      "media": []
+    },
+    {
+      "id": "900000000000000006",
+      "text": "Small release note: bookmark export viewer now supports primary-only tag matching and AND filtering for mixed-theme exploration.",
+      "created_at": "2026-04-17T02:20:00+00:00",
+      "author": {
+        "id": "1006",
+        "username": "sample_tooling",
+        "display_name": "Sample Tooling"
+      },
+      "media": [
+        {
+          "type": "animated_gif",
+          "media_url_https": "https://picsum.photos/seed/xbkp3/600/600",
+          "expanded_url": "https://example.com/sample/gif/1"
+        }
+      ]
     }
   ]
 }
