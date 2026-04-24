@@ -1,0 +1,76 @@
+{
+  "generated_at": "2026-04-24T00:00:00+00:00",
+  "bookmarks": {
+    "exported_at": "2026-04-24T00:00:00+00:00",
+    "tweets": [
+      {
+        "id": "910000000000000001",
+        "text": "Private workflow note on prompt compression before retrieval.",
+        "created_at": "2026-04-24T09:00:00+00:00",
+        "author": {
+          "id": "2001",
+          "username": "private_prompt_lab",
+          "display_name": "Private Prompt Lab"
+        },
+        "media": [],
+        "source_url": "https://x.com/private_prompt_lab/status/910000000000000001",
+        "local_path": "C:\\Users\\Tenormusica\\Downloads\\raw-export.json",
+        "browser_profile": "Default",
+        "cache_key": "bookmark-cache-001",
+        "job_id": "job-123",
+        "personal_note": "keep internal only"
+      },
+      {
+        "id": "910000000000000002",
+        "text": "Agent workflow diagram for local MCP server setup.",
+        "created_at": "2026-04-23T08:30:00+00:00",
+        "author": {
+          "id": "2002",
+          "username": "private_agent_ops",
+          "display_name": "Private Agent Ops"
+        },
+        "media": [
+          {
+            "type": "photo",
+            "media_url_https": "https://picsum.photos/seed/private1/600/600",
+            "expanded_url": "https://example.com/private/photo/1",
+            "screenshot_path": "C:\\Users\\Tenormusica\\Pictures\\agent.png"
+          }
+        ],
+        "machine_name": "DESKTOP-PRIVATE"
+      }
+    ]
+  },
+  "tags": {
+    "classified_at": "2026-04-24T00:00:00+0000",
+    "categories": ["prompt-eng", "ai-agent", "dev-env", "tutorial"],
+    "tags": [
+      {
+        "id": "910000000000000001",
+        "primary": "prompt-eng",
+        "secondary": ["tutorial"],
+        "llm_prompt": "classify this tweet",
+        "reasoning_trace": "internal reasoning omitted"
+      },
+      {
+        "id": "910000000000000002",
+        "primary": "dev-env",
+        "secondary": ["ai-agent"],
+        "provider_metadata": {"model": "internal-model"}
+      }
+    ]
+  },
+  "translations": {
+    "910000000000000001": {
+      "author": "private_prompt_lab",
+      "original": "Private workflow note on prompt compression before retrieval.",
+      "ja": "retrieval 前の prompt compression に関する内部メモ。",
+      "retry_log": ["attempt-1"]
+    },
+    "910000000000000002": {
+      "author": "private_agent_ops",
+      "original": "Agent workflow diagram for local MCP server setup.",
+      "ja": "local MCP server セットアップ用の agent workflow 図。"
+    }
+  }
+}

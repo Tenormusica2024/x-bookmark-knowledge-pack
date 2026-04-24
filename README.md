@@ -122,6 +122,12 @@ python .\scripts\render_gallery.py .\sample-data\bookmarks.json .\dist\custom\ga
 
 If `tags.json` exists next to the input file, it is also auto-detected.
 
+Convert a broader private-style input into a public-safe bundle:
+
+```powershell
+python .\scripts\sanitize_import.py .\sample-data\private-input.sample.json .\dist\sanitized-sample
+```
+
 ---
 
 ## Recommended repo split
@@ -157,6 +163,7 @@ Use this repo for:
 - `docs/quickstart.md`
 - `docs/use-with-agents.md`
 - `docs/public-safe-import-boundary.md`
+- `docs/sanitize-import-example.md`
 
 ---
 
