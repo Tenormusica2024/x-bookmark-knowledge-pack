@@ -16,12 +16,19 @@ The script keeps only the public-safe subset and emits a clean bundle.
 ## Example
 
 ```powershell
-python .\scripts\sanitize_import.py .\sample-data\private-input.sample.json .\dist\sanitized-sample
+python .\scripts\sanitize_import.py .\sample-data\private-input.sample.json .\dist\sanitized-sample --overwrite
 ```
+
+## Useful flags
+
+- `--overwrite`
+  - replace an existing non-empty output directory
+- `--no-html`
+  - skip `gallery.html` generation and emit JSON artifacts only
 
 ## Output
 
-- `gallery.html`
+- `gallery.html` (unless `--no-html`)
 - `bookmarks.json`
 - `tags.json`
 - `translations.json`
@@ -36,7 +43,9 @@ python .\scripts\sanitize_import.py .\sample-data\private-input.sample.json .\di
 - validates that forbidden private-like markers do not remain
 - checks sanitized outputs against explicit allowlists
 - writes a validation report with dropped-field counts
-- renders HTML from the cleaned JSON
+- fails clearly if the input is missing / invalid JSON
+- fails clearly if the output directory is non-empty unless `--overwrite` is set
+- renders HTML from the cleaned JSON unless `--no-html` is set
 
 ## Fixture verification
 

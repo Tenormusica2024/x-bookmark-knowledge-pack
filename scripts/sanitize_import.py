@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -42,6 +44,10 @@ ALLOWED_PACKAGE_INFO_KEYS = {
 }
 
 
+class CliError(Exception):
+    pass
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description='Sanitize a broader private-style input into a public-safe knowledge pack.'
@@ -53,6 +59,16 @@ def parse_args() -> argparse.Namespace:
         '--subtitle',
         default='Portable local bookmark bundle for humans and AI agents',
         help='HTML subtitle',
+    )
+    parser.add_argument(
+        '--overwrite',
+        action='store_true',
+        help='Remove existing output contents before writing the sanitized bundle.',
+    )
+    parser.add_argument(
+        '--no-html',
+        action='store_true',
+        help='Skip gallery.html generation and output JSON artifacts only.',
     )
     return parser.parse_args()
 
@@ -224,69 +240,108 @@ def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 
 
-def main() -> None:
+def load_input_json(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        raise CliError(f'Input file not found: {path}')
+    if not path.is_file():
+        raise CliError(f'Input path is not a file: {path}')
+    try:
+        return json.loads(path.read_text(encoding='utf-8'))
+    except json.JSONDecodeError as exc:
+        raise CliError(f'Input is not valid JSON: {path} (line {exc.lineno}, column {exc.colno})') from exc
+
+
+def prepare_output_dir(path: Path, overwrite: bool) -> None:
+    if path.exists() and not path.is_dir():
+        raise CliError(f'Output path exists and is not a directory: {path}')
+    if path.exists():
+        has_contents = any(path.iterdir())
+        if has_contents and not overwrite:
+            raise CliError(
+                f'Output directory already exists and is not empty: {path} ; rerun with --overwrite to replace it.'
+            )
+        if has_contents and overwrite:
+            shutil.rmtree(path)
+    path.mkdir(parents=True, exist_ok=True)
+
+
+def main() -> int:
     args = parse_args()
-    raw = json.loads(args.input.read_text(encoding='utf-8'))
+    try:
+        raw = load_input_json(args.input)
+        prepare_output_dir(args.output_dir, overwrite=args.overwrite)
 
-    bookmarks, bookmark_metrics = sanitize_bookmarks(raw.get('bookmarks') or raw)
-    tweet_ids = {str(t['id']) for t in bookmarks.get('tweets') or []}
-    tags, tag_metrics = sanitize_tags(raw.get('tags') or {}, tweet_ids)
-    translations, translation_metrics = sanitize_translations(raw.get('translations') or {}, bookmarks)
-    drop_metrics = bookmark_metrics | tag_metrics | translation_metrics
+        bookmarks, bookmark_metrics = sanitize_bookmarks(raw.get('bookmarks') or raw)
+        tweet_ids = {str(t['id']) for t in bookmarks.get('tweets') or []}
+        tags, tag_metrics = sanitize_tags(raw.get('tags') or {}, tweet_ids)
+        translations, translation_metrics = sanitize_translations(raw.get('translations') or {}, bookmarks)
+        drop_metrics = bookmark_metrics | tag_metrics | translation_metrics
 
-    package_info = build_manifest(bookmarks, tags, translations)
-    package_info.update({
-        'kind': 'public-safe-bundle',
-        'generated_from': args.input.name,
-        'sanitized': True,
-        'files': [
-            'gallery.html',
+        package_info = build_manifest(bookmarks, tags, translations)
+        files = [
             'bookmarks.json',
             'tags.json',
             'translations.json',
             'package-info.json',
             'validation-report.json',
             'README.md',
-        ],
-    })
+        ]
+        if not args.no_html:
+            files.insert(0, 'gallery.html')
+        package_info.update({
+            'kind': 'public-safe-bundle',
+            'generated_from': args.input.name,
+            'sanitized': True,
+            'files': files,
+        })
 
-    checks = []
-    checks.extend(validate_public_safe([
-        ('bookmarks', bookmarks),
-        ('tags', tags),
-        ('translations', translations),
-        ('package_info', package_info),
-    ]))
-    checks.extend(validate_schema(bookmarks, tags, translations, package_info))
+        checks = []
+        checks.extend(validate_public_safe([
+            ('bookmarks', bookmarks),
+            ('tags', tags),
+            ('translations', translations),
+            ('package_info', package_info),
+        ]))
+        checks.extend(validate_schema(bookmarks, tags, translations, package_info))
 
-    validation = build_validation_report(
-        bookmarks=bookmarks,
-        tags=tags,
-        translations=translations,
-        drop_metrics=drop_metrics,
-        checks=checks,
-        source_name=args.input.name,
-    )
-    package_info['validation'] = {
-        'status': validation['status'],
-        'checks': validation['checks'],
-        'dropped': validation['dropped'],
-    }
+        validation = build_validation_report(
+            bookmarks=bookmarks,
+            tags=tags,
+            translations=translations,
+            drop_metrics=drop_metrics,
+            checks=checks,
+            source_name=args.input.name,
+        )
+        package_info['validation'] = {
+            'status': validation['status'],
+            'checks': validation['checks'],
+            'dropped': validation['dropped'],
+        }
 
-    args.output_dir.mkdir(parents=True, exist_ok=True)
-    write_json(args.output_dir / 'bookmarks.json', bookmarks)
-    write_json(args.output_dir / 'tags.json', tags)
-    write_json(args.output_dir / 'translations.json', translations)
-    write_json(args.output_dir / 'package-info.json', package_info)
-    write_json(args.output_dir / 'validation-report.json', validation)
-    html = build_html(bookmarks, title=args.title, subtitle=args.subtitle, tags_data=tags)
-    (args.output_dir / 'gallery.html').write_text(html, encoding='utf-8')
-    (args.output_dir / 'README.md').write_text(
-        '# Public-safe Bundle\n\nGenerated by sanitize_import.py.\n',
-        encoding='utf-8',
-    )
-    print(f'Sanitized bundle written to: {args.output_dir}')
+        write_json(args.output_dir / 'bookmarks.json', bookmarks)
+        write_json(args.output_dir / 'tags.json', tags)
+        write_json(args.output_dir / 'translations.json', translations)
+        write_json(args.output_dir / 'package-info.json', package_info)
+        write_json(args.output_dir / 'validation-report.json', validation)
+        if not args.no_html:
+            html = build_html(bookmarks, title=args.title, subtitle=args.subtitle, tags_data=tags)
+            (args.output_dir / 'gallery.html').write_text(html, encoding='utf-8')
+        (args.output_dir / 'README.md').write_text(
+            '# Public-safe Bundle\n\nGenerated by sanitize_import.py.\n',
+            encoding='utf-8',
+        )
+        print(f'Sanitized bundle written to: {args.output_dir}')
+        print(f'Validation report: {args.output_dir / "validation-report.json"}')
+        if args.no_html:
+            print('HTML generation skipped (--no-html).')
+        return 0
+    except CliError as exc:
+        print(f'ERROR: {exc}', file=sys.stderr)
+        return 2
+    except ValueError as exc:
+        print(f'VALIDATION ERROR: {exc}', file=sys.stderr)
+        return 3
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())
