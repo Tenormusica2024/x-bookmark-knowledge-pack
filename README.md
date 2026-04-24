@@ -68,6 +68,7 @@ Minimum bundle:
 - `bookmarks.json`
 - `tags.json`
 - `translations.json`
+- `package-info.json`
 - `README.md`
 
 Optional later additions:
@@ -108,6 +109,7 @@ This generates:
 - `dist/sample-pack/bookmarks.json`
 - `dist/sample-pack/tags.json`
 - `dist/sample-pack/translations.json`
+- `dist/sample-pack/package-info.json`
 - `dist/sample-pack/README.md`
 
 Then open `dist/sample-pack/gallery.html` in your browser.
@@ -154,6 +156,7 @@ Use this repo for:
 - `docs/bootstrap-plan.md`
 - `docs/quickstart.md`
 - `docs/use-with-agents.md`
+- `docs/public-safe-import-boundary.md`
 
 ---
 
@@ -164,8 +167,9 @@ The next refactoring focus for the public track should be:
 1. package UX polish
 2. sample quality improvement
 3. clearer import / normalization boundary
-4. better AI-facing companion outputs
-5. release-ready distribution flow
+4. explicit private-to-public import boundary
+5. better AI-facing companion outputs
+6. release-ready distribution flow
 
 ---
 

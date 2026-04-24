@@ -8,6 +8,7 @@ Minimum distribution bundle:
 - `bookmarks.json`
 - `tags.json`
 - `translations.json`
+- `package-info.json`
 - `README.md`
 
 Optional:
@@ -41,6 +42,12 @@ Optional:
 - multilingual support layer
 - preserve translated text separately from raw source where possible
 
+### `package-info.json`
+
+- lightweight manifest for pack metadata
+- summary stats for humans and agents
+- quick capability discovery without parsing the full corpus
+
 ### `bookmarks.md`
 
 - optional AI / PKM-friendly text export
@@ -58,4 +65,4 @@ Optional:
 - inspectable
 - archive-friendly
 - easy for AI agents to consume
-
+- understandable without private-environment assumptions
