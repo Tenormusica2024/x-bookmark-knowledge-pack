@@ -100,4 +100,7 @@ If `tags.json` exists in the same folder as the input bookmarks file, the render
 
 - `docs/quick-reference.md`
 - `docs/sanitize-import-example.md`
+- `docs/refresh-pipeline.md`
+- `docs/scheduler-setup.md`
+- `docs/recommended-upstream-input.md`
 - `docs/use-with-agents.md`

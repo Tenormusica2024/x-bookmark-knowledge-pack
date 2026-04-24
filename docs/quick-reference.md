@@ -44,7 +44,21 @@ Typical output:
 Sanitized bundle note:
 - `validation-report.json` is standard for sanitize output
 
-### 4. Run bundled sanitize fixtures
+### 4. Refresh a stable bundle output
+
+```powershell
+python .\scripts\refresh_bundle.py <input.json> <output-dir>
+```
+
+Useful flags:
+- `--publish-dir <dir>`
+- `--no-html`
+
+Output:
+- refreshed sanitized bundle
+- `refresh-report.json`
+
+### 5. Run bundled sanitize fixtures
 
 ```powershell
 python .\scripts\run_sanitize_fixtures.py
@@ -54,7 +68,7 @@ Output:
 - `dist/fixture-runs/*`
 - `dist/fixture-runs/fixture-summary.json`
 
-### 5. Run exit code checks
+### 6. Run exit code checks
 
 ```powershell
 python .\scripts\run_sanitize_exitcode_checks.py

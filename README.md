@@ -83,6 +83,12 @@ python .\scripts\render_gallery.py .\sample-data\bookmarks.json .\dist\custom\ga
 python .\scripts\sanitize_import.py .\sample-data\private-input.sample.json .\dist\sanitized-sample --overwrite
 ```
 
+### Refresh a stable bundle output
+
+```powershell
+python .\scripts\refresh_bundle.py .\sample-data\private-input.sample.json .\dist\live-bundle
+```
+
 ---
 
 ## Read next
@@ -92,6 +98,9 @@ python .\scripts\sanitize_import.py .\sample-data\private-input.sample.json .\di
 - `docs/sanitize-import-example.md`
 - `docs/use-with-agents.md`
 - `docs/public-safe-import-boundary.md`
+- `docs/refresh-pipeline.md`
+- `docs/scheduler-setup.md`
+- `docs/recommended-upstream-input.md`
 
 ---
 
