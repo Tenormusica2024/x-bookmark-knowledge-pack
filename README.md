@@ -53,6 +53,16 @@ The intended flow is simple:
 
 This is why the repo is positioned as a **knowledge-pack layer** on top of an extracted source, not as a full bookmark SaaS.
 
+![End-to-end flow](docs/assets/end-to-end-flow.svg)
+
+---
+
+## Why adopt this
+
+Before: bookmarks often stay trapped inside the platform UI and are awkward to reuse.
+
+After: the same corpus becomes a local HTML view for humans, structured JSON for AI agents, and a schedulable refresh target.
+
 ---
 
 ## Package shape
@@ -133,6 +143,8 @@ The recommended upstream is an extracted bookmark DB / export JSON outside the v
 - `docs/recommended-upstream-input.md`
 - `docs/who-its-for.md`
 - `docs/end-to-end-example.md`
+- `docs/upstream-integration.md`
+- `docs/why-adopt.md`
 
 ---
 

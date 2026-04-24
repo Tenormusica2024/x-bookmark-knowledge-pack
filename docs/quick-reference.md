@@ -99,3 +99,5 @@ Output:
 4. `docs/use-with-agents.md`
 5. `docs/who-its-for.md`
 6. `docs/end-to-end-example.md`
+7. `docs/upstream-integration.md`
+8. `docs/why-adopt.md`

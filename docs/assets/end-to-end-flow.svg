@@ -1,0 +1,61 @@
+<svg width="1400" height="760" viewBox="0 0 1400 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1400" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7F2E9"/>
+      <stop offset="1" stop-color="#F1EBE0"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="200%" height="200%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#2E2518" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12 Z" fill="#0F766E"/>
+    </marker>
+  </defs>
+
+  <rect width="1400" height="760" rx="28" fill="url(#bg)"/>
+
+  <text x="84" y="96" fill="#1F1F1A" font-family="Georgia, 'Times New Roman', serif" font-size="54" font-weight="700">X Bookmark Knowledge Pack</text>
+  <text x="84" y="136" fill="#6D6A62" font-family="Georgia, 'Times New Roman', serif" font-size="24">End-to-end flow: extracted source → sanitize → bundle refresh → human + AI reuse</text>
+
+  <rect x="86" y="206" width="284" height="182" rx="18" fill="#FFFDF8" stroke="#DDD4C8" filter="url(#shadow)"/>
+  <text x="110" y="252" fill="#0F766E" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="700">1. Upstream source</text>
+  <text x="110" y="292" fill="#1F1F1A" font-family="Georgia, 'Times New Roman', serif" font-size="24">Extracted bookmark DB</text>
+  <text x="110" y="326" fill="#1F1F1A" font-family="Georgia, 'Times New Roman', serif" font-size="24">or export JSON</text>
+  <text x="110" y="364" fill="#6D6A62" font-family="Georgia, 'Times New Roman', serif" font-size="18">Can stay rich, private,</text>
+  <text x="110" y="389" fill="#6D6A62" font-family="Georgia, 'Times New Roman', serif" font-size="18">and operational upstream</text>
+
+  <rect x="448" y="206" width="284" height="182" rx="18" fill="#FFFDF8" stroke="#DDD4C8" filter="url(#shadow)"/>
+  <text x="472" y="252" fill="#0F766E" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="700">2. Sanitize layer</text>
+  <text x="472" y="292" fill="#1F1F1A" font-family="Georgia, 'Times New Roman', serif" font-size="24">sanitize_import.py</text>
+  <text x="472" y="326" fill="#6D6A62" font-family="Georgia, 'Times New Roman', serif" font-size="18">Drops private-only fields,</text>
+  <text x="472" y="351" fill="#6D6A62" font-family="Georgia, 'Times New Roman', serif" font-size="18">normalizes shape, validates output</text>
+
+  <rect x="810" y="206" width="284" height="182" rx="18" fill="#FFFDF8" stroke="#DDD4C8" filter="url(#shadow)"/>
+  <text x="834" y="252" fill="#0F766E" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="700">3. Refresh layer</text>
+  <text x="834" y="292" fill="#1F1F1A" font-family="Georgia, 'Times New Roman', serif" font-size="24">refresh_bundle.py</text>
+  <text x="834" y="326" fill="#6D6A62" font-family="Georgia, 'Times New Roman', serif" font-size="18">Stable one-command refresh</text>
+  <text x="834" y="351" fill="#6D6A62" font-family="Georgia, 'Times New Roman', serif" font-size="18">for schedulers and deploy flows</text>
+
+  <rect x="1168" y="206" width="152" height="182" rx="18" fill="#FFFDF8" stroke="#DDD4C8" filter="url(#shadow)"/>
+  <text x="1190" y="252" fill="#0F766E" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="700">4. Scheduler</text>
+  <text x="1190" y="294" fill="#1F1F1A" font-family="Georgia, 'Times New Roman', serif" font-size="20">Task Scheduler</text>
+  <text x="1190" y="322" fill="#1F1F1A" font-family="Georgia, 'Times New Roman', serif" font-size="20">cron</text>
+  <text x="1190" y="350" fill="#1F1F1A" font-family="Georgia, 'Times New Roman', serif" font-size="20">Actions</text>
+
+  <path d="M370 297 H432" stroke="#0F766E" stroke-width="6" marker-end="url(#arrow)"/>
+  <path d="M732 297 H794" stroke="#0F766E" stroke-width="6" marker-end="url(#arrow)"/>
+  <path d="M1094 297 H1150" stroke="#0F766E" stroke-width="6" marker-end="url(#arrow)"/>
+
+  <rect x="150" y="500" width="444" height="176" rx="20" fill="#FFFDF8" stroke="#DDD4C8" filter="url(#shadow)"/>
+  <text x="176" y="546" fill="#0F766E" font-family="Georgia, 'Times New Roman', serif" font-size="24" font-weight="700">Human-facing output</text>
+  <text x="176" y="588" fill="#1F1F1A" font-family="Georgia, 'Times New Roman', serif" font-size="30">gallery.html</text>
+  <text x="176" y="626" fill="#6D6A62" font-family="Georgia, 'Times New Roman', serif" font-size="19">Search, filters, tag match, AND tag, local browsing</text>
+
+  <rect x="686" y="500" width="564" height="176" rx="20" fill="#FFFDF8" stroke="#DDD4C8" filter="url(#shadow)"/>
+  <text x="712" y="546" fill="#0F766E" font-family="Georgia, 'Times New Roman', serif" font-size="24" font-weight="700">AI / pipeline-facing output</text>
+  <text x="712" y="588" fill="#1F1F1A" font-family="Georgia, 'Times New Roman', serif" font-size="28">bookmarks.json · tags.json · translations.json</text>
+  <text x="712" y="626" fill="#1F1F1A" font-family="Georgia, 'Times New Roman', serif" font-size="24">package-info.json · validation-report.json</text>
+
+  <path d="M952 388 V470" stroke="#0F766E" stroke-width="6" marker-end="url(#arrow)"/>
+  <path d="M866 470 C866 452 590 452 372 488" stroke="#0F766E" stroke-width="6" fill="none" marker-end="url(#arrow)"/>
+</svg>
