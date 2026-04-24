@@ -1,0 +1,61 @@
+{
+  "generated_at": "2026-04-24T00:00:00+00:00",
+  "bookmarks": {
+    "tweets": [
+      {
+        "id": "920000000000000001",
+        "text": "tweet_url fallback と missing translations の挙動確認。",
+        "created_at": "2026-04-22T01:00:00+00:00",
+        "author": {
+          "id": "3001",
+          "username": "fixture_fallback",
+          "display_name": "Fixture Fallback",
+          "profile_path": "C:\\Users\\Tenormusica\\profiles\\fixture"
+        },
+        "media": [],
+        "tweet_url": "https://x.com/fixture_fallback/status/920000000000000001",
+        "notes": "private-only"
+      },
+      {
+        "id": "920000000000000002",
+        "text": "tag rows / translation rows の orphan を skip できるか確認。",
+        "created_at": "2026-04-22T02:00:00+00:00",
+        "author": {
+          "id": "3002",
+          "username": "fixture_orphan",
+          "display_name": "Fixture Orphan"
+        },
+        "media": []
+      }
+    ]
+  },
+  "tags": {
+    "classified_at": "2026-04-24T00:00:00+0000",
+    "tags": [
+      {
+        "id": "920000000000000001",
+        "primary": "workflow",
+        "secondary": ["tutorial"],
+        "confidence": 0.88
+      },
+      {
+        "id": "999999999999999999",
+        "primary": "prompt-eng",
+        "secondary": ["ai-agent"],
+        "debug": true
+      }
+    ]
+  },
+  "translations": {
+    "920000000000000001": {
+      "author": "fixture_fallback",
+      "original": "tweet_url fallback と missing translations の挙動確認。",
+      "translated": "tweet_url fallback と missing translations の挙動を確認する。"
+    },
+    "999999999999999999": {
+      "author": "ghost",
+      "original": "ghost row",
+      "ja": "ghost row"
+    }
+  }
+}

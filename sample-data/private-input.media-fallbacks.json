@@ -1,0 +1,55 @@
+{
+  "generated_at": "2026-04-24T00:00:00+00:00",
+  "bookmarks": {
+    "exported_at": "2026-04-24T00:00:00+00:00",
+    "tweets": [
+      {
+        "id": "930000000000000001",
+        "text": "preview_url / url / video_url fallback の確認。",
+        "created_at": "2026-04-21T05:00:00+00:00",
+        "author": {
+          "id": "4001",
+          "username": "fixture_media",
+          "display_name": "Fixture Media"
+        },
+        "media": [
+          {
+            "type": "video",
+            "preview_url": "https://picsum.photos/seed/fixturevid/600/600",
+            "url": "https://example.com/fixture/video/1",
+            "video_url": "https://example.com/fixture/video/1.mp4",
+            "cache_key": "video-private-cache"
+          },
+          {
+            "preview_url": "https://picsum.photos/seed/fixtureimg/600/600",
+            "url": "https://example.com/fixture/photo/1",
+            "local_path": "C:\\Users\\Tenormusica\\Pictures\\fixture.png"
+          }
+        ],
+        "screenshot_path": "C:\\Users\\Tenormusica\\Pictures\\fixture-all.png"
+      }
+    ]
+  },
+  "tags": {
+    "classified_at": "2026-04-24T00:00:00+0000",
+    "categories": ["dev-env", "ai-agent", "tool-update"],
+    "tags": [
+      {
+        "id": "930000000000000001",
+        "primary": "dev-env",
+        "secondary": ["tool-update", "ai-agent"],
+        "provider_metadata": {
+          "trace_id": "trace-private"
+        }
+      }
+    ]
+  },
+  "translations": {
+    "930000000000000001": {
+      "author": "fixture_media",
+      "original": "preview_url / url / video_url fallback の確認。",
+      "ja": "preview_url / url / video_url の fallback を確認する。",
+      "retry_log": ["r1", "r2"]
+    }
+  }
+}
