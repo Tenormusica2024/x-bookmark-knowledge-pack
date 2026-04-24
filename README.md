@@ -85,6 +85,8 @@ Recommended division:
 - define package structure
 - define what should be public vs private
 - add distribution-oriented README/docs
+- add a minimal public-safe renderer
+- add a sample knowledge pack
 
 ### Phase 2
 
@@ -131,3 +133,26 @@ See:
 - `docs/package-spec.md`
 - `docs/private-to-public-split.md`
 
+---
+
+## Minimal local usage
+
+Build the sample pack:
+
+```powershell
+python .\scripts\build_sample_pack.py
+```
+
+This generates:
+
+- `dist/sample-pack/gallery.html`
+- `dist/sample-pack/bookmarks.json`
+- `dist/sample-pack/tags.json`
+- `dist/sample-pack/translations.json`
+- `dist/sample-pack/README.md`
+
+Or render directly from your own files:
+
+```powershell
+python .\scripts\render_gallery.py .\sample-data\bookmarks.json .\dist\custom\gallery.html --tags .\sample-data\tags.json
+```

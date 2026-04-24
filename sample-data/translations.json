@@ -1,0 +1,17 @@
+{
+  "900000000000000001": {
+    "author": "sample_ai_ops",
+    "original": "Claude Code の token 最適化まとめ。compact / clear / context engineering を組み合わせるとかなり効く。",
+    "ja": "Claude Code の token 最適化まとめ。compact / clear / context engineering を組み合わせるとかなり効く。"
+  },
+  "900000000000000002": {
+    "author": "sample_frontend",
+    "original": "React アプリを視覚編集できる OSS ツールを試した。Figma と code の間をかなり埋める感じ。",
+    "ja": "React アプリを視覚編集できる OSS ツールを試した。Figma と code の間をかなり埋める感じ。"
+  },
+  "900000000000000003": {
+    "author": "sample_agent_arch",
+    "original": "Agent Skills を使ったワークフロー設計。Slash command と review loop の整理が分かりやすい。",
+    "ja": "Agent Skills を使ったワークフロー設計。Slash command と review loop の整理が分かりやすい。"
+  }
+}

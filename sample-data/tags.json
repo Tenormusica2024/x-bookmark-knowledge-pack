@@ -1,0 +1,45 @@
+{
+  "classified_at": "2026-04-24T00:00:00+0000",
+  "total": 3,
+  "categories": [
+    "frontend",
+    "backend",
+    "workflow",
+    "ai-agent",
+    "tool-update",
+    "oss",
+    "indie-dev",
+    "ai-media",
+    "prompt-eng",
+    "x-growth",
+    "career",
+    "ai-industry",
+    "dev-env",
+    "lifestyle",
+    "tutorial"
+  ],
+  "tags": [
+    {
+      "id": "900000000000000001",
+      "primary": "prompt-eng",
+      "secondary": [
+        "dev-env"
+      ]
+    },
+    {
+      "id": "900000000000000002",
+      "primary": "oss",
+      "secondary": [
+        "frontend"
+      ]
+    },
+    {
+      "id": "900000000000000003",
+      "primary": "ai-agent",
+      "secondary": [
+        "tutorial",
+        "workflow"
+      ]
+    }
+  ]
+}

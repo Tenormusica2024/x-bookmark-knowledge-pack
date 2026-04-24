@@ -3,5 +3,6 @@ bookmarks-data.json
 bookmarks-sample.json
 sample-bookmarks.csv
 test.csv
+dist/
 __pycache__/
 *.pyc

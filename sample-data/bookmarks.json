@@ -1,0 +1,45 @@
+{
+  "exported_at": "2026-04-24T00:00:00+00:00",
+  "count": 3,
+  "tweets": [
+    {
+      "id": "900000000000000001",
+      "text": "Claude Code の token 最適化まとめ。compact / clear / context engineering を組み合わせるとかなり効く。",
+      "created_at": "2026-04-22T09:00:00+00:00",
+      "author": {
+        "id": "1001",
+        "username": "sample_ai_ops",
+        "display_name": "Sample AI Ops"
+      },
+      "media": []
+    },
+    {
+      "id": "900000000000000002",
+      "text": "React アプリを視覚編集できる OSS ツールを試した。Figma と code の間をかなり埋める感じ。",
+      "created_at": "2026-04-21T12:15:00+00:00",
+      "author": {
+        "id": "1002",
+        "username": "sample_frontend",
+        "display_name": "Sample Frontend"
+      },
+      "media": [
+        {
+          "type": "photo",
+          "media_url_https": "https://picsum.photos/seed/xbkp1/600/600",
+          "expanded_url": "https://example.com/sample/photo/1"
+        }
+      ]
+    },
+    {
+      "id": "900000000000000003",
+      "text": "Agent Skills を使ったワークフロー設計。Slash command と review loop の整理が分かりやすい。",
+      "created_at": "2026-04-20T15:30:00+00:00",
+      "author": {
+        "id": "1003",
+        "username": "sample_agent_arch",
+        "display_name": "Sample Agent Architect"
+      },
+      "media": []
+    }
+  ]
+}
