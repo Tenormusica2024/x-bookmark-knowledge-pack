@@ -89,6 +89,8 @@ python .\scripts\sanitize_import.py .\sample-data\private-input.sample.json .\di
 python .\scripts\refresh_bundle.py .\sample-data\private-input.sample.json .\dist\live-bundle
 ```
 
+The recommended upstream is an extracted bookmark DB / export JSON outside the viewer UI.
+
 ---
 
 ## Read next

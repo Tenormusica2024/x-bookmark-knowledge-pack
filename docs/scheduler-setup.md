@@ -18,6 +18,11 @@ After that, the machine can rerun the refresh command automatically.
 python .\scripts\refresh_bundle.py <input.json> <output-dir>
 ```
 
+If you want a thinner OS-specific entrypoint, use:
+
+- Windows: `pwsh -File .\scripts\refresh_bundle.ps1 <input.json> <output-dir>`
+- macOS / Linux: `./scripts/refresh_bundle.sh <input.json> <output-dir>`
+
 Example:
 
 ```powershell
@@ -33,9 +38,9 @@ Recommended when the user runs this on Windows.
 ### Basic setup
 
 - Program/script:
-  - `python`
+  - `pwsh`
 - Add arguments:
-  - `.\scripts\refresh_bundle.py .\sample-data\private-input.sample.json .\dist\live-bundle`
+  - `-File .\scripts\refresh_bundle.ps1 .\sample-data\private-input.sample.json .\dist\live-bundle`
 - Start in:
   - repo root directory
 
@@ -57,7 +62,7 @@ Recommended when the user runs this on Windows.
 Example:
 
 ```bash
-0 */6 * * * cd /path/to/x-bookmark-knowledge-pack && python ./scripts/refresh_bundle.py ./sample-data/private-input.sample.json ./dist/live-bundle
+0 */6 * * * cd /path/to/x-bookmark-knowledge-pack && ./scripts/refresh_bundle.sh ./sample-data/private-input.sample.json ./dist/live-bundle
 ```
 
 ---
@@ -69,7 +74,9 @@ Use when:
 - the upstream input can be produced inside GitHub
 - or the sanitized bundle is versioned/published through the repo itself
 
-This repo does not yet include an Actions workflow template, but the refresh command is designed to be scheduler-friendly.
+GitHub Actions can also update generated HTML **if the upstream input JSON is available inside the workflow** (or can be fetched there). In that case, the workflow can run `refresh_bundle.py` and then commit/deploy the refreshed bundle.
+
+This repo does not yet include a workflow template, because upstream acquisition differs by user setup, but the refresh command is designed to be scheduler-friendly.
 
 ---
 

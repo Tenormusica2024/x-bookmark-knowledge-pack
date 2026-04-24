@@ -50,6 +50,10 @@ Sanitized bundle note:
 python .\scripts\refresh_bundle.py <input.json> <output-dir>
 ```
 
+OS wrappers:
+- Windows: `pwsh -File .\scripts\refresh_bundle.ps1 <input.json> <output-dir>`
+- macOS / Linux: `./scripts/refresh_bundle.sh <input.json> <output-dir>`
+
 Useful flags:
 - `--publish-dir <dir>`
 - `--no-html`
