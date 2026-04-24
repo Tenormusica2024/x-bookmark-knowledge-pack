@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-04-24T00:00:00+00:00",
+  "bookmarks": {
+    "tweets": [
+      {
+        "id": "940000000000000001",
+        "text": "This fixture should trigger validation failure because source_url is a local path.",
+        "created_at": "2026-04-20T00:00:00+00:00",
+        "author": {
+          "id": "5001",
+          "username": "fixture_validation_fail",
+          "display_name": "Fixture Validation Fail"
+        },
+        "media": [],
+        "source_url": "C:\\Users\\Tenormusica\\Documents\\secret.txt"
+      }
+    ]
+  },
+  "tags": {
+    "classified_at": "2026-04-24T00:00:00+0000",
+    "tags": [
+      {
+        "id": "940000000000000001",
+        "primary": "workflow",
+        "secondary": []
+      }
+    ]
+  },
+  "translations": {
+    "940000000000000001": {
+      "author": "fixture_validation_fail",
+      "original": "This fixture should trigger validation failure because source_url is a local path.",
+      "ja": "source_url がローカルパスなので validation failure を起こす fixture。"
+    }
+  }
+}

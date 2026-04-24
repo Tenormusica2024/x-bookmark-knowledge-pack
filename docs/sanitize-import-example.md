@@ -56,3 +56,13 @@ python .\scripts\run_sanitize_fixtures.py
 ```
 
 This writes per-fixture outputs under `dist/fixture-runs` and generates `fixture-summary.json`.
+
+## Exit code verification
+
+You can also run CLI-oriented exit code checks:
+
+```powershell
+python .\scripts\run_sanitize_exitcode_checks.py
+```
+
+This verifies representative success / CLI error / validation error cases and writes `dist/exitcode-checks/exitcode-summary.json`.
