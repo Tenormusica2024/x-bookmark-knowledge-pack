@@ -13,7 +13,10 @@ SCRIPT = ROOT / 'scripts' / 'sanitize_import.py'
 
 
 def main() -> None:
-    fixtures = sorted(SAMPLE_DIR.glob('private-input*.json'))
+    fixtures = sorted(
+        path for path in SAMPLE_DIR.glob('private-input*.json')
+        if path.name not in {'private-input.invalid.json', 'private-input.validation-fail.json'}
+    )
     DIST_DIR.mkdir(parents=True, exist_ok=True)
     summary = []
     for fixture in fixtures:

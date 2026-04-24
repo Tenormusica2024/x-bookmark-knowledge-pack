@@ -57,6 +57,8 @@ python .\scripts\run_sanitize_fixtures.py
 
 This writes per-fixture outputs under `dist/fixture-runs` and generates `fixture-summary.json`.
 
+This fixture runner is for success-oriented fixtures. Invalid JSON / validation-failure cases are covered separately by the exit code check script.
+
 ## Exit code verification
 
 You can also run CLI-oriented exit code checks:

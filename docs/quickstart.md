@@ -39,6 +39,7 @@ Main output:
 - `bookmarks.json`
 - `tags.json`
 - `translations.json`
+- `package-info.json`
 - `README.md`
 
 Open `gallery.html` locally in your browser.
@@ -92,3 +93,11 @@ If `tags.json` exists in the same folder as the input bookmarks file, the render
 - stronger package metadata
 - optional Markdown / JSONL companion exports
 - clearer importer path from private operational data to public-safe bundles
+
+---
+
+## Related docs
+
+- `docs/quick-reference.md`
+- `docs/sanitize-import-example.md`
+- `docs/use-with-agents.md`

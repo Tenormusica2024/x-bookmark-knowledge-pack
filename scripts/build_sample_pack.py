@@ -12,7 +12,15 @@ SAMPLE_DIR = ROOT / "sample-data"
 DIST_DIR = ROOT / "dist" / "sample-pack"
 
 
-def build_manifest(bookmarks: dict, tags: dict, translations: dict) -> dict:
+def build_manifest(
+    bookmarks: dict,
+    tags: dict,
+    translations: dict,
+    *,
+    name: str = "X Bookmark Knowledge Pack",
+    kind: str = "knowledge-pack",
+    generated_from: str = "unknown",
+) -> dict:
     tweets = bookmarks.get("tweets") or []
     tag_rows = tags.get("tags") or []
     primary_counts: dict[str, int] = {}
@@ -31,9 +39,9 @@ def build_manifest(bookmarks: dict, tags: dict, translations: dict) -> dict:
         media_summary[classify_media_type(tweet)] += 1
 
     return {
-        "name": "X Bookmark Knowledge Pack (Sample)",
-        "kind": "sample-pack",
-        "generated_from": "sample-data",
+        "name": name,
+        "kind": kind,
+        "generated_from": generated_from,
         "generated_at": bookmarks.get("exported_at"),
         "files": [
             "gallery.html",
@@ -86,7 +94,14 @@ def main() -> None:
     shutil.copy2(tags_path, DIST_DIR / "tags.json")
     shutil.copy2(translations_path, DIST_DIR / "translations.json")
 
-    manifest = build_manifest(bookmarks, tags, translations)
+    manifest = build_manifest(
+        bookmarks,
+        tags,
+        translations,
+        name="X Bookmark Knowledge Pack (Sample)",
+        kind="sample-pack",
+        generated_from="sample-data",
+    )
     (DIST_DIR / "package-info.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
