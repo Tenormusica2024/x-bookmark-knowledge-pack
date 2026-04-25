@@ -7,6 +7,19 @@ Turn X bookmarks into a **portable local knowledge pack** for both humans and AI
 
 This public repo is the distribution track for tooling incubated in the private `x-bookmark-gallery` environment.
 
+## At a glance
+
+- generates a static bookmark pack from exported or pre-extracted X bookmark data
+- keeps the same corpus usable for both human browsing and AI-agent ingestion
+- fits local-first workflows, schedulers, and archive-friendly publishing
+
+## What already works
+
+- sanitized public sample pack generation
+- static `gallery.html` + companion JSON outputs
+- fixture-based sanitize checks in CI
+- scheduler-friendly refresh flow on top of an upstream bookmark source
+
 ## Core idea
 
 This is **not** trying to be a generic bookmark SaaS.
