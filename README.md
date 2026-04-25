@@ -1,5 +1,8 @@
 # x-bookmark-knowledge-pack
 
+[![CI](https://github.com/Tenormusica2024/x-bookmark-knowledge-pack/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Tenormusica2024/x-bookmark-knowledge-pack/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 Turn X bookmarks into a **portable local knowledge pack** for both humans and AI agents.
 
 This public repo is the distribution track for tooling incubated in the private `x-bookmark-gallery` environment.

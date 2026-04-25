@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-bundle-tooling:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Compile Python files
+        run: python -m compileall -q scripts
+
+      - name: Run sanitize fixtures
+        run: python scripts/run_sanitize_fixtures.py
+
+      - name: Run sanitize exit code checks
+        run: python scripts/run_sanitize_exitcode_checks.py
+
+      - name: Build sample pack
+        run: python scripts/build_sample_pack.py
+
+      - name: Verify sample pack outputs
+        shell: bash
+        run: |
+          test -f dist/sample-pack/gallery.html
+          test -f dist/sample-pack/bookmarks.json
+          test -f dist/sample-pack/tags.json
+          test -f dist/sample-pack/translations.json
+          test -f dist/sample-pack/package-info.json
+          test -f dist/sample-pack/README.md
