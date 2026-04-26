@@ -14,7 +14,7 @@ Generate a small local bundle that can be:
 
 ## Prerequisites
 
-- Python 3.x
+- Python 3.10 / 3.11 / 3.12
 - local clone of this repository
 
 No server is required.
@@ -43,6 +43,15 @@ Main output:
 - `README.md`
 
 Open `gallery.html` locally in your browser.
+
+If you want a stronger local validation pass before using your own data, run:
+
+```powershell
+python .\scripts\run_sanitize_fixtures.py
+python .\scripts\run_sanitize_exitcode_checks.py
+```
+
+Then rebuild the sample pack once.
 
 ---
 

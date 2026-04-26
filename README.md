@@ -117,6 +117,12 @@ Optional later:
 
 ## Fast start
 
+Supported / CI-verified Python versions:
+
+- 3.10
+- 3.11
+- 3.12
+
 ### Build the sample pack
 
 ```powershell
@@ -124,6 +130,14 @@ python .\scripts\build_sample_pack.py
 ```
 
 Output goes to `dist/sample-pack`.
+
+If you want the shortest local **"is this fork healthy?"** check before using your own data:
+
+```powershell
+python .\scripts\run_sanitize_fixtures.py
+python .\scripts\run_sanitize_exitcode_checks.py
+python .\scripts\build_sample_pack.py
+```
 
 ### Render a gallery directly
 
@@ -144,6 +158,12 @@ python .\scripts\refresh_bundle.py .\sample-data\private-input.sample.json .\dis
 ```
 
 The recommended upstream is an extracted bookmark DB / export JSON outside the viewer UI.
+
+### Practical expectation
+
+- **Sample pack path:** close to zero-setup
+- **Real data path:** requires an upstream extracted bookmark JSON / DB outside this repo
+- **Scheduler path:** comes after the local refresh command already works once
 
 ---
 
