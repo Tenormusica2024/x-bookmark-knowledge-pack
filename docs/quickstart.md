@@ -49,9 +49,10 @@ If you want a stronger local validation pass before using your own data, run:
 ```powershell
 python .\scripts\run_sanitize_fixtures.py
 python .\scripts\run_sanitize_exitcode_checks.py
+python .\scripts\build_sample_pack.py
 ```
 
-Then rebuild the sample pack once.
+This is the same public health path the CI workflow uses before verifying the sample pack outputs.
 
 ---
 

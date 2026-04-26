@@ -13,7 +13,7 @@ This public repo is the distribution track for tooling incubated in the private 
 - keeps the same corpus usable for both human browsing and AI-agent ingestion
 - fits local-first workflows, schedulers, and archive-friendly publishing
 
-## What already works
+## Verified bundle surface
 
 - sanitized public sample pack generation
 - static `gallery.html` + companion JSON outputs
@@ -101,7 +101,7 @@ Optional later:
 
 ---
 
-## What already works
+## Viewer and bundle capabilities
 
 - local static gallery rendering
 - text / author search
@@ -169,8 +169,8 @@ The recommended upstream is an extracted bookmark DB / export JSON outside the v
 
 ## Read next
 
-- `docs/quick-reference.md`
 - `docs/quickstart.md`
+- `docs/quick-reference.md`
 - `docs/sanitize-import-example.md`
 - `docs/use-with-agents.md`
 - `docs/public-safe-import-boundary.md`
